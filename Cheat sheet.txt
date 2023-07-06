@@ -1,0 +1,35 @@
+Memory referencing in assembly:
+segment(CS, DS, ES, FS, GS, SS, DS if unspecified):[
+    base(16=BP/BX, 32/64=any)+
+    index(16=SI/DI,32/64=any)*
+    scale(32/64=1,2,4,8)+
+    displacement(a signed constant)]
+
+CS: Code
+DS: Data
+SS: Stack
+ES: Extra data
+FS: Extra data #2
+GS: Extra data #3
+
+var: dw 100         ;A variable with the value 100
+;dw is a 2 byte word
+mov ax, var         ; copy variable offset to ax
+array: dw 100, 200, 300
+mov bx, array       ; copy offset to bx
+mov si, 2 * 2       ; array[2]
+mov ax, [bx+si]     ;copy memory
+
+You can only use registers with referencing memory
+
+B = byte
+W = word
+D = double word
+
+lods(B/W/D) = load data type into DS:SI into AL/AX/EAX, then increment SI by length
+
+Interrupts are events and the processor will stop EVERYTHING to handle the signal.
+Can be triggered by:
+-Exceptions
+-Hardware
+-Software
