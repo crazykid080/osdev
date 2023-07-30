@@ -9,8 +9,6 @@
 uint8_t* KernelLoadBuffer = (uint8_t*)MEMORY_LOAD_KERNEL;
 uint8_t* Kernel = (uint8_t*)MEMORY_KERNEL_ADDR;
 
-typedef void (*KernelStart)();
-
 void __attribute__((cdecl)) start(uint16_t bootDrive)
 {
     clrscr();
@@ -41,9 +39,9 @@ void __attribute__((cdecl)) start(uint16_t bootDrive)
     FAT_Close(fd);
 
     // execute kernel
-    KernelStart kernelStart = (KernelStart)Kernel;
-    printf("Executing kernel...\n");
-    kernelStart();
+    printf("Attempting extern ASM jump");
+    kernelStart(Kernel);
+    printf("extern ASM jump failed.");
 
 end:
     for (;;);

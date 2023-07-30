@@ -128,6 +128,8 @@ KbdControllerWriteCtrlOutputPort    equ 0xD1
 
 ScreenBuffer                        equ 0xB8000
 
+
+
 g_GDT:      ; NULL descriptor
             dq 0
 

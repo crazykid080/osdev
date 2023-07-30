@@ -245,3 +245,15 @@ x86_Disk_Read:
     mov esp, ebp
     pop ebp
     ret
+
+
+global kernelStart
+kernelStart:
+    push ebp
+    mov ebp, esp
+
+    jmp eax
+
+    mov esp, ebp
+    pop ebp
+    ret
