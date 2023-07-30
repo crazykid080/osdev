@@ -252,8 +252,5 @@ kernelStart:
     push ebp
     mov ebp, esp
 
+    mov eax, DWORD [ebp + 8]
     jmp eax
-
-    mov esp, ebp
-    pop ebp
-    ret

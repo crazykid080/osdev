@@ -40,7 +40,7 @@ void __attribute__((cdecl)) start(uint16_t bootDrive)
 
     // execute kernel
     printf("Attempting extern ASM jump");
-    kernelStart(Kernel);
+    kernelStart(MEMORY_KERNEL_ADDR);
     printf("extern ASM jump failed.");
 
 end:
