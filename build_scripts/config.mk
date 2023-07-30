@@ -27,4 +27,5 @@ GCC_URL = https://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.
 
 export WARNINGS := -Wall -Wextra -Wpedantic
 export SRC_DIR := src/
+export SOURCE_DIR := .
 export TOOLS_DIR := tools/
