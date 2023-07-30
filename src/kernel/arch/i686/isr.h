@@ -11,3 +11,6 @@ typedef struct{
 } __attribute__((packed)) Registers;
 
 void i686_ISR_Initialize();
+
+typedef void (*ISRHandler)(Registers* regs);
+void i686_ISR_RegisterHandler(int interrupt);

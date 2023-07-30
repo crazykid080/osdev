@@ -3,7 +3,8 @@
 extern i686_ISR_Handler
 
 %macro ISR_NOERRORCODE 1
-global i686_ISR%1
+
+global i686_ISR%1:
 i686_ISR%1:
     push 0      ; Dummy error code
     push %1      ; Interrupt number 
@@ -12,7 +13,8 @@ i686_ISR%1:
 %endmacro
 
 %macro ISR_ERRORCODE 1
-global i686_ISR%1
+
+global i686_ISR%1:
 i686_ISR%1:
                     ; CPU pushes error code to stack, push 0 not needed
     push %1         ; Interrupt number 
@@ -36,12 +38,10 @@ isr_common:
     mov gs, ax
 
     push esp            ;pass pointer to stack to C
-
     call i686_ISR_Handler
     add esp, 4
 
     pop eax             ; Restore old segment
-
     mov ds, ax
     mov es, ax
     mov fs, ax
@@ -49,5 +49,4 @@ isr_common:
 
     popa
     add esp, 8          ; remove error code and interrupt number
-
     iret                

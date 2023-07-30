@@ -18,8 +18,8 @@ typedef enum{
     IDT_FLAG_GATE_TASK                      = 0x05,
     IDT_FLAG_GATE_16BIT_INT                 = 0x06,
     IDT_FLAG_GATE_16BIT_TRAP                = 0x07,
-    IDT_FLAG_GATE_32BIT_INT                 = 0x08,
-    IDT_FLAG_GATE_32BIT_TRAP                = 0x09,
+    IDT_FLAG_GATE_32BIT_INT                 = 0x0E,
+    IDT_FLAG_GATE_32BIT_TRAP                = 0x0F,
 
     IDT_FLAG_RING0                          = (0 << 5),
     IDT_FLAG_RING1                          = (1 << 5),
