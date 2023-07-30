@@ -1,1 +1,1 @@
-bochs -f bochs_config
+gdb -x ./gdbscript.gdb
