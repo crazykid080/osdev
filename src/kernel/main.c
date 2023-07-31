@@ -15,7 +15,6 @@ void __attribute__((section(".entry"))) start(uint16_t bootDrive){
     clrscr();
 
     printf("Hello world from kernel!!!\n");
-    crash_me();
 
 end:
     for (;;);

@@ -56,7 +56,7 @@ void __attribute__((cdecl)) i686_ISR_Handler(Registers* regs){
         g_ISRHandlers[regs->interrupt](regs);
         
     } else if (regs->interrupt >= 32) {
-        printf("Unhandled interrupt %d", regs->interrupt);
+        printf("Unhandled interrupt %d\n", regs->interrupt);
     } else {
         printf("Unhandled exception %d %s", regs->interrupt, g_Exceptions[regs->interrupt]);
         printf("  eax=%x  ebx=%x  ecx=%x  edx=%x  esi=%x  edi=%x\n",
@@ -71,4 +71,9 @@ void __attribute__((cdecl)) i686_ISR_Handler(Registers* regs){
         printf("KERNEL PANIC! WE ARE F***ED!");
         i686_Panic();
     }
+}
+
+void i686_ISR_RegisterHandler(int interrupt, ISRHandler handler){
+    g_ISRHandlers[interrupt] = handler;
+    i686_IDT_EnableGate(interrupt);
 }

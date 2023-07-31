@@ -26,6 +26,6 @@ GCC_VERSION = 11.2.0
 GCC_URL = https://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.xz
 
 export WARNINGS := -Wall -Wextra -Wpedantic
-export SRC_DIR := src/
-export SOURCE_DIR := .
-export TOOLS_DIR := tools/
+export SOURCE_DIR := $(abspath .)
+export SRC_DIR := $(abspath src)
+export TOOLS_DIR := $(abspath tools)
