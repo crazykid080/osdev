@@ -16,8 +16,6 @@ void keyHandler(Registers* regs){
     if(recv < 0x80){
         printf("Based on scancode table, you pressed key %s\n", qwerty_Scancodes[scancode]);
     } else {
-        printf("Based on scancode table, you released key ");
-        printf(qwerty_Scancodes[(recv ^ 0x80)-1]);
-        printf("\n");
+        printf("Based on scancode table, you released key %s\n", qwerty_Scancodes[(recv ^ 0x80)-1]);
     }
 }
