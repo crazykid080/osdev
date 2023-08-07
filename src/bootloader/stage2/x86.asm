@@ -246,11 +246,66 @@ x86_Disk_Read:
     pop ebp
     ret
 
+; int ASMCALL x86_E820GetNextBlock(E820MemoryBlock* block, uint32_t* continuationId);
 
-global kernelStart
-kernelStart:
+E820Signature   equ 0x534D4150
+
+global x86_E820GetNextBlock
+x86_E820GetNextBlock:
     push ebp
-    mov ebp, esp
+    mov ebp, esp          
 
-    mov eax, DWORD [ebp + 8]
-    jmp eax
+    x86_EnterRealMode
+
+    ; save modified regs
+    push ebx
+    push ecx
+    push edx
+    push esi
+    push edi
+    push ds
+    push es
+
+    ; setup params
+    LinearToSegOffset [bp + 8], es, edi, di
+
+    LinearToSegOffset [bp + 12], ds, esi, si
+
+    mov ebx, ds:[si]
+
+    mov eax, 0xE820
+    mov edx, E820Signature
+    mov ecx, 24
+
+    int 0x15
+
+    cmp eax, E820Signature
+    jne .Error
+
+    .IfSucceeded:
+        mov eax, ecx                            ; return size
+        mov ds:[si], ebx                        ; fill continuation paramater
+        jmp .EndIf
+
+    .Error:
+        mov eax, -1
+
+    .EndIf:
+    ; restore regs
+    pop es
+    pop ds
+    pop edi
+    pop esi
+    pop edx
+    pop ecx
+    pop ebx
+
+    push eax
+
+    x86_EnterProtectedMode
+
+    pop eax
+
+    mov esp, ebp
+    pop ebp
+    ret

@@ -1,9 +1,10 @@
 TARGET_ASMFLAGS += -f elf
-TARGET_CFLAGS += -ffreestanding -nostdlib -I.
+TARGET_CFLAGS += -ffreestanding -nostdlib -I $(SRC_DIR)/libs -I. -Iarch/i686
 TARGET_LIBS += -lgcc
 TARGET_LINKFLAGS += -T linker.ld -nostdlib
 
-HEADERS_C = $(shell find . -type f -name "*.h")
+HEADERS_C = $(shell find . -type f -name "*.h") \
+			$(shell find $(SRC_DIR)/libs/boot -type f -name "*.h")
 SOURCES_C = $(shell find . -type f -name "*.c")
 HEADERS_ASM=$(shell find . -type f -name "*.inc") \
 			arch/i686/isrs_gen.inc

@@ -1,6 +1,7 @@
 #include "keyboard.h"
 #include "scancodes.h"
 #include <stdio.h>
+#include <debug.h>
 #include <arch/i686/io.h>
 
 void keyHandler(Registers* regs){
@@ -10,12 +11,12 @@ void keyHandler(Registers* regs){
     uint16_t keypress = recv & ~0x80;
     
     if(keypress > sizeof(qwerty_Scancodes)-1){
-        printf("ERROR: input %x exceeds size of scancode table\n", recv);
+        log_err("Keyboard handler", "ERROR: input %x exceeds size of scancode table\n", recv);
         __asm("int $0x6");
     }
     if(recv < 0x80){
-        printf("Based on scancode table, you pressed key %s\n", qwerty_Scancodes[scancode]);
+        log_debug("Keyboard handler", "Based on scancode table, you pressed key %s", qwerty_Scancodes[scancode]);
     } else {
-        printf("Based on scancode table, you released key %s\n", qwerty_Scancodes[(recv ^ 0x80)-1]);
+        log_debug("Keyboard handler", "Based on scancode table, you released key %s", qwerty_Scancodes[(recv ^ 0x80)-1]);
     }
 }

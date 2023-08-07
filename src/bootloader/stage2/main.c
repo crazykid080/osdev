@@ -5,9 +5,14 @@
 #include "fat.h"
 #include "memdefs.h"
 #include "memory.h"
+#include "memdetect.h"
+
+BootParams g_BootParams;
 
 uint8_t* KernelLoadBuffer = (uint8_t*)MEMORY_LOAD_KERNEL;
 uint8_t* Kernel = (uint8_t*)MEMORY_KERNEL_ADDR;
+
+typedef void (*KernelStart)(BootParams* bootParams);
 
 void __attribute__((cdecl)) start(uint16_t bootDrive)
 {
@@ -26,6 +31,9 @@ void __attribute__((cdecl)) start(uint16_t bootDrive)
         printf("FAT init error\r\n");
         goto end;
     }
+    //Prepare boot params
+    g_BootParams.BootDevice = bootDrive;
+    Memory_Detect(&g_BootParams.Memory);
 
     // load kernel
     FAT_File* fd = FAT_Open(&disk, "/kernel.bin");
@@ -39,8 +47,8 @@ void __attribute__((cdecl)) start(uint16_t bootDrive)
     FAT_Close(fd);
 
     // execute kernel
-    printf("Attempting extern ASM jump");
-    kernelStart(Kernel);
+    KernelStart kernelEntry = (KernelStart)Kernel;
+    kernelEntry(&g_BootParams);
 
 end:
     for (;;);
