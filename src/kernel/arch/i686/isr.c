@@ -3,6 +3,7 @@
 #include "stdio.h"
 #include <stddef.h>
 #include "io.h"
+#include <debug.h>
 
 ISRHandler g_ISRHandlers[256];
 
@@ -69,8 +70,10 @@ void __attribute__((cdecl)) i686_ISR_Handler(Registers* regs){
 
 
         printf("KERNEL PANIC! WE ARE F***ED!");
+        log_crit("ISR", "KERNEL PANIC! WE ARE F***ED!");
         i686_Panic();
     }
+    
 }
 
 void i686_ISR_RegisterHandler(int interrupt, ISRHandler handler){

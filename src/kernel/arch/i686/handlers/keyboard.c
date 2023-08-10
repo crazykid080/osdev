@@ -5,7 +5,6 @@
 #include <arch/i686/io.h>
 
 void keyHandler(Registers* regs){
-    i686_iowait();
     uint16_t recv = i686_inb(0x60);
     uint16_t scancode = recv - 1;
     uint16_t keypress = recv & ~0x80;

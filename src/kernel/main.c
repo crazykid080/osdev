@@ -26,8 +26,8 @@ void __attribute__((section(".entry"))) start(BootParams* bootParams){
                                                     bootParams->Memory.Regions[i].Length,
                                                     bootParams->Memory.Regions[i].Type);
     }
+    crash_me();
     
-
     printf("Hello world from kernel!!!\n");
     log_debug("Main", "This is a debug string");
     log_info("Main", "This is an info string");
