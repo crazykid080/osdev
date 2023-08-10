@@ -1,6 +1,7 @@
 #include "divbyzero.h"
 #include <debug.h>
 #include <arch/i686/io.h>
+#include <arch/i686/hardware/vga_text.h>
 
 int g_div_counter = 0;
 
@@ -9,6 +10,7 @@ void resetDivCounter(){
 }
 
 void divZeroHandler(Registers* regs){
+    vga_setScreenColor((0x4 << 4)|0xF);
     if(g_div_counter >= 5){
         log_crit("Division by zero handler", "Too many errors occuring quickly!");
         __asm("int $0x8");
@@ -16,7 +18,6 @@ void divZeroHandler(Registers* regs){
     log_crit("Division by zero handler", "Divide by zero");
     log_info("Division by zero handler","eax=%x  ebx=%x  ecx=%x  edx=%x  esi=%x  edi=%x",
                regs->eax, regs->ebx, regs->ecx, regs->edx, regs->esi, regs->edi);
-
     log_info("Division by zero handler","esp=%x  ebp=%x  eip=%x  eflags=%x  cs=%x  ds=%x  ss=%x",
             regs->esp, regs->ebp, regs->eip, regs->eflags, regs->cs, regs->ds, regs->ss);
 
@@ -24,4 +25,5 @@ void divZeroHandler(Registers* regs){
     regs->ecx = 0xFFFFFFFF;
 
     g_div_counter++;
+    vga_setScreenColor(0x7);
 }

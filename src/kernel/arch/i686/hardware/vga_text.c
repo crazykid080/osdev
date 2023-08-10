@@ -15,6 +15,14 @@ void vga_putcolor(int x, int y, uint8_t color){
     g_ScreenBuffer[2 * (y * SCREEN_WIDTH + x) + 1] = color;
 }
 
+void vga_setScreenColor(uint8_t color){
+    for (int y = 0; y < SCREEN_HEIGHT; y++){
+        for (int x = 0; x < SCREEN_WIDTH; x++){
+            vga_putcolor(x, y, color);
+        }
+    }
+}
+
 char vga_getchr(int x, int y){
     return g_ScreenBuffer[2 * (y * SCREEN_WIDTH + x)];
 }
