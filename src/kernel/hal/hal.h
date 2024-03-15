@@ -1,3 +1,3 @@
-#pragma onnce
+#pragma once
 
 void HAL_initialize();
