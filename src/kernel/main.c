@@ -26,8 +26,8 @@ void __attribute__((section(".entry"))) start(BootParams* bootParams){
                                                     bootParams->Memory.Regions[i].Type);
     }
     
-    crash_me();
-    __asm("int $0x7");
+    //crash_me();
+    //__asm("int $0x7");
     printf("Hello world from kernel!!!\n");
 end:
     for (;;);
