@@ -52,6 +52,12 @@ void vga_clrscr(){
     vga_setcursor(g_ScreenX, g_ScreenY);
 }
 
+void vga_backspace(){
+    g_ScreenX--;
+    g_ScreenBuffer[2 * (g_ScreenY * SCREEN_WIDTH + g_ScreenX)] = ' ';
+    vga_setcursor(g_ScreenX, g_ScreenY);
+}
+
 void vga_scrollback(int lines){
     for (int y = lines; y < SCREEN_HEIGHT; y++)
         for (int x = 0; x < SCREEN_WIDTH; x++){

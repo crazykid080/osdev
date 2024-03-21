@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <debug.h>
 #include <arch/i686/io.h>
+#include <arch/i686/hardware/vga_text.h>
 
 char* module = "Keyboard Handler";
 
@@ -42,6 +43,8 @@ void keyHandler(Registers* regs){
             putc(' ');}
         else if (result == "KEY_ENTER"){
             putc('\n');
+        } else if(result == "KEY_BACKSPACE"){
+            vga_backspace();
         }
         
         return;
