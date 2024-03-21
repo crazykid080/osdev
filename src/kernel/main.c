@@ -6,11 +6,19 @@
 #include <boot/bootparams.h>
 #include <arch/i686/hardware/vga_text.h>
 #include "debug.h"
+#include <arch/i686/io.h>
 
 extern uint8_t __bss_start;
 extern uint8_t __end;
 
 void crash_me();
+
+void kernel_panic(char* source){
+    log_crit(source, "KERNEL PANIC CALLED");
+    printf("KERNEL PANIC CALLED!");
+    vga_setScreenColor((0x4 << 4)|(0xF));
+    i686_Panic();
+}
 
 void __attribute__((section(".entry"))) start(BootParams* bootParams){
     memset(&__bss_start, 0, (&__end) - (&__bss_start));

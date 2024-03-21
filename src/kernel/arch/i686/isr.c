@@ -69,11 +69,7 @@ void __attribute__((cdecl)) i686_ISR_Handler(Registers* regs){
 
         log_crit("ISR", "interrupt=%x  errorcode=%x", regs->interrupt, regs->error);
 
-
-        printf("KERNEL PANIC! WE ARE F***ED!");
-        log_crit("ISR", "KERNEL PANIC! WE ARE F***ED!");
-        vga_setScreenColor((0x4 << 4)|(0xF));
-        i686_Panic();
+        kernel_panic();
     }
     
 }

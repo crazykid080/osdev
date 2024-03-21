@@ -13,3 +13,13 @@ const char* qwerty_Scancodes[] = {
     "KEYPAD_7", "KEYPAD_8", "KEYPAD_9", "KEYPAD_-", "KEYPAD_4", "KEYPAD_5", "KEYPAD_6", "KEYPAD_+", "KEYPAD_1", "KEYPAD_2", "KEYPAD_3", "KEYPAD_0",
     "KEYPAD_.", NULL, NULL, NULL, "KEY_F11", "KEY_F12"
 };
+
+//TODO: Map keypad to letters. This is probably (no.... definitely) a TERRIBLE way of doing it
+const char* letters[] = {
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=",
+    "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]",
+    "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", "'", "`", "\\",
+    "Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"
+};
+
+//const char* qwerty_Keys[] = {};
