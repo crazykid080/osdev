@@ -4,11 +4,21 @@
 #include <debug.h>
 #include <arch/i686/io.h>
 #include <arch/i686/hardware/vga_text.h>
+#include <string.h>
 
 char* module = "Keyboard Handler";
 
 uint8_t errorCount = 0;
 uint8_t faultCount = 0;
+
+//Helper functions to allow for future changes in graphics modes
+void keyPutc(char in){
+    putc(in);
+}
+
+void keyBackspace(){
+    vga_backspace();
+}
 
 void keyHandler(Registers* regs){
     uint16_t recv = i686_inb(0x60);
@@ -39,14 +49,14 @@ void keyHandler(Registers* regs){
                 puts(result);
             }
         }
-        if(result == "KEY_SPACE"){
-            putc(' ');}
-        else if (result == "KEY_ENTER"){
-            putc('\n');
-        } else if(result == "KEY_BACKSPACE"){
-            vga_backspace();
+        if(strcmp(result, "KEY_SPACE")){
+            keyPutc(' ');
+        } 
+        else if (strcmp(result, "KEY_ENTER")){
+            keyPutc('\n');
+        } else if(strcmp(result, "KEY_BACKSPACE")){
+            keyBackspace();
         }
-        
         return;
     } else {
         //log_debug("Keyboard handler", "SCANCODE DEBUG: 0x%x", (recv^0x80));

@@ -16,7 +16,7 @@ void crash_me();
 void kernel_panic(char* source){
     log_crit(source, "KERNEL PANIC CALLED");
     printf("KERNEL PANIC CALLED!");
-    vga_setScreenColor((0x4 << 4)|(0xF));
+    vga_setScreenColor(VGA_COLOR_RED|(0xF));
     i686_Panic();
 }
 

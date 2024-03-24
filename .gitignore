@@ -1,3 +1,6 @@
 /build/*
 /bx_enh_dbg.ini
 toolchain/*
+.vscode/*
+dirtest.txt
+gdbscript.gdb
