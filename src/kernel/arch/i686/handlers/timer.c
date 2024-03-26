@@ -1,5 +1,5 @@
 #include "timer.h"
-#include <stdio.h>
+#include <libc/stdio.h>
 #include <debug.h>
 #include "divbyzero.h"
 #include "keyboard/keyboard.h"

@@ -1,5 +1,5 @@
 #include "debug.h"
-#include <stdio.h>
+#include <libc/stdio.h>
 
 static const char* const g_LogSeverityColors[] =
 {

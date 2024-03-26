@@ -1,10 +1,10 @@
 #include "keyboard.h"
 #include "scancodes.h"
-#include <stdio.h>
+#include <libc/stdio.h>
 #include <debug.h>
 #include <arch/i686/io.h>
 #include <arch/i686/hardware/vga_text.h>
-#include <string.h>
+#include <libc/string.h>
 
 char* module = "Keyboard Handler";
 
@@ -44,6 +44,7 @@ void keyHandler(Registers* regs){
     }else if(recv < 0x80){
         const char* result = qwerty_Scancodes[scancode];
         log_debug(module, "Based on scancode table, you pressed key %s", result);
+        //If result is a singular letter, put it on the screen
         for (size_t i = 0; i < sizeof(letters); i++){
             if(letters[i] == result){
                 puts(result);

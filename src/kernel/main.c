@@ -1,5 +1,5 @@
 #include <stdint.h>
-#include "stdio.h"
+#include "libc/stdio.h"
 #include "memory.h"
 #include "hal/hal.h"
 #include <arch/i686/handlers/g_handler.h>

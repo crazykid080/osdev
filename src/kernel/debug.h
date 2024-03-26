@@ -1,5 +1,5 @@
 #pragma once
-#include <stdio.h>
+#include <libc/stdio.h>
 
 #define MIN_LOG_LEVEL LVL_DEBUG
 

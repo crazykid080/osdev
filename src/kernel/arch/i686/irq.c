@@ -2,7 +2,7 @@
 #include "pic.h"
 #include "io.h"
 #include <stddef.h>
-#include "stdio.h"
+#include "libc/stdio.h"
 
 IRQHandler g_IRQHandlers[16];
 

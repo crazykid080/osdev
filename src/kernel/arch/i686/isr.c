@@ -1,6 +1,6 @@
 #include "isr.h"
 #include "idt.h"
-#include "stdio.h"
+#include "libc/stdio.h"
 #include <stddef.h>
 #include "io.h"
 #include <debug.h>
