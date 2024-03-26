@@ -1,5 +1,8 @@
 #include "vga_text.h"
+#include <debug.h>
 #include "../io.h"
+
+static const char* module = "vga text";
 
 const unsigned SCREEN_WIDTH = 80;
 const unsigned SCREEN_HEIGHT = 25;
@@ -32,6 +35,7 @@ uint8_t vga_getcolor(int x, int y){
 }
 
 void vga_setcursor(int x, int y){
+    log_debug(module, "Setting cursor....");
     int pos = y * SCREEN_WIDTH + x;
 
     i686_outb(0x3D4, 0x0F);
@@ -53,6 +57,7 @@ void vga_clrscr(){
 }
 
 void vga_backspace(){
+    log_debug(module, "Backspace");
     g_ScreenX--;
     g_ScreenBuffer[2 * (g_ScreenY * SCREEN_WIDTH + g_ScreenX)] = ' ';
     vga_setcursor(g_ScreenX, g_ScreenY);

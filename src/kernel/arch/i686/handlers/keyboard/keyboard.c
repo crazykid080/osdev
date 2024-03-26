@@ -6,7 +6,7 @@
 #include <arch/i686/hardware/vga_text.h>
 #include <libc/string.h>
 
-char* module = "Keyboard Handler";
+static const char* module = "Keyboard Handler";
 
 uint8_t errorCount = 0;
 uint8_t faultCount = 0;
