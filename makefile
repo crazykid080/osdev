@@ -15,6 +15,13 @@ $(BUILD_DIR)/main_floppy.img: bootloader kernel
 	@./build_scripts/make_floppy_image.sh $@
 	@echo "--> Created: " $@
 
+
+disk_image: $(BUILD_DIR)/main_disk.raw
+
+$(BUILD_DIR)/main_disk.raw: bootloader kernel
+	@./build_scripts/make_disk_image.sh $@ $(MAKE_DISK_SIZE)
+	@echo "--> Created: " $@
+
 #
 # Bootloader
 #

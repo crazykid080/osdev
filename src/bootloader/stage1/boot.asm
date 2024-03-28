@@ -33,6 +33,8 @@ ebr_volume_id:              db 03h, 00h, 80h, 00h   ; serial number, value doesn
 ebr_volume_label:           db 'ASYLUM OS  '        ; 11 bytes, padded with spaces
 ebr_system_id:              db 'FAT12   '           ; 8 bytes
 
+times 90-($-$$) db 0
+
 ;
 ; Code goes here
 ;

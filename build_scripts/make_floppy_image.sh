@@ -1,6 +1,8 @@
 #!/bin/bash
+
 TARGET=$1
 STAGE1_STAGE2_OFFSET=480
+
 #generate image file
 dd if=/dev/zero of=$TARGET bs=512 count=2880 > /dev/null
 
