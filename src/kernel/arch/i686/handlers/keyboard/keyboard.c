@@ -44,23 +44,20 @@ void keyHandler(Registers* regs){
     } else if(recv < 0x80){
         const char* result = qwerty_Scancodes[scancode];
         log_debug(module, "Based on scancode table, you pressed key %s", result);
-        if(strcmp(result, "KEY_SPACE")){
-            keyPutc(' ');
-            return;
-        } else if (strcmp(result, "KEY_ENTER")){
-            log_debug(module, "Attempting to add new line");
-            keyPutc('\n');
-            return;
-        } else if(strcmp(result, "KEY_BACKSPACE")){
-            keyBackspace();
-            return;
-        }
         //If result is a singular letter, put it on the screen
         for (size_t i = 0; i < sizeof(letters); i++){
             if(letters[i] == result){
                 puts(letters[i]);
                 return;
             }
+        }
+        if(strcmp(result, "KEY_SPACE") == 0){
+            keyPutc(' ');
+        } else if (strcmp(result, "KEY_ENTER") == 0){
+            log_debug(module, "Attempting to add new line");
+            keyPutc('\n');
+        } else if(strcmp(result, "KEY_BACKSPACE") == 0){
+            keyBackspace();
         }
         return;
     } else {
