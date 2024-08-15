@@ -26,7 +26,9 @@ void keyHandler(Registers* regs){
     uint16_t keypress = recv & ~0x80;
     if(recv == 0xE0){
         //Extended byte... continue for now, no need to worry about it.
+        log_debug(module, "Extended byte. Ignoring.");
         return;
+    }
     if(keypress > (sizeof(qwerty_Scancodes)/sizeof(qwerty_Scancodes[0]))){ //Gets the length of the array instead of size
         log_err(module, "ERROR: input 0x%x exceeds size of scancode table", recv);
         errorCount++;
@@ -39,24 +41,26 @@ void keyHandler(Registers* regs){
             }
         }
         return;
-    }
-    
-    }else if(recv < 0x80){
+    } else if(recv < 0x80){
         const char* result = qwerty_Scancodes[scancode];
         log_debug(module, "Based on scancode table, you pressed key %s", result);
+        if(strcmp(result, "KEY_SPACE")){
+            keyPutc(' ');
+            return;
+        } else if (strcmp(result, "KEY_ENTER")){
+            log_debug(module, "Attempting to add new line");
+            keyPutc('\n');
+            return;
+        } else if(strcmp(result, "KEY_BACKSPACE")){
+            keyBackspace();
+            return;
+        }
         //If result is a singular letter, put it on the screen
         for (size_t i = 0; i < sizeof(letters); i++){
             if(letters[i] == result){
-                puts(result);
+                puts(letters[i]);
+                return;
             }
-        }
-        if(strcmp(result, "KEY_SPACE")){
-            keyPutc(' ');
-        } 
-        else if (strcmp(result, "KEY_ENTER")){
-            keyPutc('\n');
-        } else if(strcmp(result, "KEY_BACKSPACE")){
-            keyBackspace();
         }
         return;
     } else {
